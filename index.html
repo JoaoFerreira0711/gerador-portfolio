@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gerador de Portfólio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Gerador de Portfólio</h1>
+
+    <ul class="progressbar">
+      <li class="active">Dados Pessoais</li>
+      <li>Formação & Habilidades</li>
+      <li>Projetos</li>
+      <li>Finalizar</li>
+    </ul>
+<label for="modelo">Escolha o modelo de portfólio:</label>
+<select id="modelo">
+  <option value="classico">Clássico</option>
+  <option value="moderno">Moderno</option>
+  <option value="dark">Elegante (Dark)</option>
+</select>
+
+    <form id="portfolio-form">
+      <!-- Passo 1 -->
+      <div class="step active">
+        <label for="nome">Nome completo:</label>
+        <input type="text" id="nome" required />
+
+        <label for="bio">Sobre você:</label>
+        <textarea id="bio" rows="4" required></textarea>
+
+        <label for="foto">Sua foto:</label>
+        <input type="file" id="foto" accept="image/*" />
+      </div>
+
+      <!-- Passo 2 -->
+      <div class="step">
+        <label for="formacao">Formação (separe por vírgula):</label>
+        <input type="text" id="formacao" placeholder="Ex: Técnico em Desenvolvimento, Engenharia de Software" required />
+
+        <label for="habilidades">Habilidades (vírgula):</label>
+        <input type="text" id="habilidades" placeholder="Ex: JavaScript, HTML, CSS" required />
+
+        <label for="objetivo">Objetivo profissional:</label>
+        <textarea id="objetivo" rows="3" required></textarea>
+      </div>
+
+      <!-- Passo 3 -->
+      <div class="step">
+        <div id="projetos-container"></div>
+        <button type="button" id="btn-add-project">Adicionar Projeto</button>
+      </div>
+
+      <!-- Passo 4 -->
+      <div class="step">
+        <label for="email">Email para contato:</label>
+        <input type="email" id="email" required />
+
+        <label for="linkedin">LinkedIn (opcional):</label>
+        <input type="url" id="linkedin" />
+      </div>
+
+      <div class="buttons">
+        <button type="button" id="prevBtn" disabled>Anterior</button>
+        <button type="button" id="nextBtn">Próximo</button>
+        <button type="button" id="restartBtn">Reiniciar</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
