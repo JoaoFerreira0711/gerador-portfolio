@@ -86,12 +86,19 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  function updateSteps() {
-    steps.forEach((s, i) => s.classList.toggle("active", i === currentStep));
-    progressItems.forEach((p, i) => p.classList.toggle("active", i <= currentStep));
-    btnPrev.disabled = currentStep === 0;
-    btnNext.textContent = currentStep === steps.length - 1 ? "Finalizar" : "Próximo";
+ function updateSteps() {
+  steps.forEach((s, i) => s.classList.toggle("active", i === currentStep));
+  progressItems.forEach((p, i) => p.classList.toggle("active", i <= currentStep));
+  btnPrev.disabled = currentStep === 0;
+  btnNext.textContent = currentStep === steps.length - 1 ? "Finalizar" : "Próximo";
+
+  // mover bolinha
+  const indicator = document.querySelector(".progress-indicator");
+  if (indicator) {
+    const target = progressItems[currentStep];
+    indicator.style.transform = `translateX(${target.offsetLeft}px)`;
   }
+}
 
   function validateStep(step) {
     const inputs = steps[step].querySelectorAll("input, textarea, select");
