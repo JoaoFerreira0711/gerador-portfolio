@@ -115,39 +115,61 @@ window.addEventListener("DOMContentLoaded", () => {
     a.click();
   }
 
- function gerarHtmlPreview(d) {
-    return `
-    <!DOCTYPE html>
-    <html lang="pt-br">
-    <head>
-      <meta charset="UTF-8">
-      <title>Portfólio de \${d.nome}</title>
-      <style>
-        body {
-          font-family: Arial, sans-serif;
-          padding: 2rem;
-          background: \${d.fundo || '#f0f0f0'};
-          color: #333;
-        }
-        h1, h2 { color: #0a3d62; }
-        section { margin-top: 2rem; background: #fff; padding: 1rem; border-radius: 8px; }
-        img { max-width: 120px; border-radius: 50%; margin-bottom: 1rem; }
-      </style>
-    </head>
-    <body>
-      <h1>\${d.nome}</h1>
-      \${d.fotoBase64 ? \`<img src="\${d.fotoBase64}" alt="Foto de \${d.nome}" />\` : ""}
-      <p>\${d.bio}</p>
-      <section><h2>Formação</h2><p>\${d.formacao}</p></section>
-      <section><h2>Habilidades</h2><p>\${d.habilidades}</p></section>
-      <section><h2>Objetivo</h2><p>\${d.objetivo}</p></section>
-      <section><h2>Projetos</h2><ul>
-        \${d.projetos.map(p => \`<li><strong>\${p.nome}</strong>: \${p.descricao} \${p.link ? \`<a href="\${p.link}" target="_blank">Link</a>\` : ""}</li>\`).join("")}
-      </ul></section>
-      <section><h2>Contato</h2><p>Email: \${d.email}</p>\${d.linkedin ? \`<p>LinkedIn: <a href="\${d.linkedin}">\${d.linkedin}</a></p>\` : ""}
-      </section>
-    </body>
-    </html>
-    `;
-  }
+function gerarHtmlPreview(d) {
+  return `
+  <!DOCTYPE html>
+  <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <title>${d.nome}</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 2rem;
+        background: ${d.fundo || '#f0f0f0'};
+        color: #333;
+      }
+      h1, h2 { color: #0a3d62; }
+      section { margin-top: 2rem; background: #fff; padding: 1rem; border-radius: 8px; }
+      img { max-width: 120px; border-radius: 50%; margin-bottom: 1rem; }
+    </style>
+  </head>
+  <body>
+    <h1>${d.nome}</h1>
+    ${d.fotoBase64 ? `<img src="${d.fotoBase64}" alt="Foto de ${d.nome}" />` : ""}
+    <p>${d.bio}</p>
+
+    <section>
+      <h2>Formação</h2>
+      <p>${d.formacao}</p>
+    </section>
+
+    <section>
+      <h2>Habilidades</h2>
+      <p>${d.habilidades}</p>
+    </section>
+
+    <section>
+      <h2>Objetivo</h2>
+      <p>${d.objetivo}</p>
+    </section>
+
+    <section>
+      <h2>Projetos</h2>
+      <ul>
+        ${d.projetos.map(p => `
+          <li><strong>${p.nome}</strong>: ${p.descricao} ${p.link ? `<a href="${p.link}" target="_blank">Link</a>` : ""}</li>
+        `).join("")}
+      </ul>
+    </section>
+
+    <section>
+      <h2>Contato</h2>
+      <p>Email: ${d.email}</p>
+      ${d.linkedin ? `<p>LinkedIn: <a href="${d.linkedin}" target="_blank">${d.linkedin}</a></p>` : ""}
+    </section>
+  </body>
+  </html>
+  `;
+}
 });
