@@ -146,67 +146,69 @@ window.addEventListener("DOMContentLoaded", () => {
     (data.projetos || []).forEach(p => adicionarProjeto(p.nome, p.descricao, p.link));
   }
 
-function adicionarProjeto(nome = "", descricao = "", link = "") {
-  const div = document.createElement("div");
-  div.className = "projeto-bloco";
-  div.innerHTML = `
-    <label>Nome do Projeto:</label>
-    <input type="text" class="projeto-nome" value="${nome}" required />
-    <label>Descrição:</label>
-    <textarea class="projeto-descricao" required>${descricao}</textarea>
-    <label>Link (opcional):</label>
-    <input type="url" class="projeto-link" value="${link}" />
-    <button type="button" class="btn-remove-project">Remover Projeto</button>
-  `;
-  div.querySelector(".btn-remove-project").addEventListener("click", () => div.remove());
-  document.getElementById("projetos-container").appendChild(div);
-}
+  function adicionarProjeto(nome = "", descricao = "", link = "") {
+    const div = document.createElement("div");
+    div.className = "projeto-bloco";
+    div.innerHTML = `
+      <label>Nome do Projeto:</label>
+      <input type="text" class="projeto-nome" value="${nome}" required />
+      <label>Descrição:</label>
+      <textarea class="projeto-descricao" required>${descricao}</textarea>
+      <label>Link (opcional):</label>
+      <input type="url" class="projeto-link" value="${link}" />
+      <button type="button" class="btn-remove-project">Remover Projeto</button>
+    `;
+    div.querySelector(".btn-remove-project").addEventListener("click", () => div.remove());
+    document.getElementById("projetos-container").appendChild(div);
+  }
 
-function gerarPortfolio() {
-  const dados = capturarDadosFormulario();
-  const html = gerarHtmlPreview(dados);
-  const blob = new Blob([html], { type: "text/html" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `portfolio-${dados.nome.toLowerCase().replace(/\s+/g, "-")}.html`;
-  a.click();
-}
+  function gerarPortfolio() {
+    const dados = capturarDadosFormulario();
+    const html = gerarHtmlPreview(dados);
+    const blob = new Blob([html], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `portfolio-${dados.nome.toLowerCase().replace(/\s+/g, "-")}.html`;
+    a.click();
+  }
 
-function gerarHtmlPreview(d) {
-  return `
-  <!DOCTYPE html>
-  <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8">
-    <title>Portfólio de \${d.nome}</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        padding: 2rem;
-        background: \${d.fundo || '#f0f0f0'};
-        background-size: cover;
-        background-position: center;
-        color: #333;
-      }
-      h1, h2 { color: #0a3d62; }
-      section { margin-top: 2rem; background: #fff; padding: 1rem; border-radius: 8px; }
-      img { max-width: 120px; border-radius: 50%; margin-bottom: 1rem; }
-    </style>
-  </head>
-  <body>
-    <h1>\${d.nome}</h1>
-    \${d.fotoBase64 ? \`<img src="\${d.fotoBase64}" alt="Foto de \${d.nome}" />\` : ""}
-    <p>\${d.bio}</p>
-    <section><h2>Formação</h2><p>\${d.formacao}</p></section>
-    <section><h2>Habilidades</h2><p>\${d.habilidades}</p></section>
-    <section><h2>Objetivo</h2><p>\${d.objetivo}</p></section>
-    <section><h2>Projetos</h2><ul>
-      \${d.projetos.map(p => \`<li><strong>\${p.nome}</strong>: \${p.descricao} \${p.link ? \`<a href="\${p.link}" target="_blank">Link</a>\` : ""}</li>\`).join("")}
-    </ul></section>
-    <section><h2>Contato</h2><p>Email: \${d.email}</p>\${d.linkedin ? \`<p>LinkedIn: <a href="\${d.linkedin}" target="_blank">\${d.linkedin}</a></p>\` : ""}</section>
-  </body>
-  </html>
-  `;
-}
+  function gerarHtmlPreview(d) {
+    return `
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+      <meta charset="UTF-8">
+      <title>Portfólio de ${d.nome}</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          padding: 2rem;
+          background: ${d.fundo || '#f0f0f0'};
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          color: #333;
+        }
+        h1, h2 { color: #0a3d62; }
+        section { margin-top: 2rem; background: #fff; padding: 1rem; border-radius: 8px; }
+        img { max-width: 120px; border-radius: 50%; margin-bottom: 1rem; display: block; }
+      </style>
+    </head>
+    <body>
+      <h1>${d.nome}</h1>
+      ${d.fotoBase64 ? `<img src="${d.fotoBase64}" alt="Foto de ${d.nome}" />` : ""}
+      <p>${d.bio}</p>
+      <section><h2>Formação</h2><p>${d.formacao}</p></section>
+      <section><h2>Habilidades</h2><p>${d.habilidades}</p></section>
+      <section><h2>Objetivo</h2><p>${d.objetivo}</p></section>
+      <section><h2>Projetos</h2><ul>
+        ${d.projetos.map(p => `<li><strong>${p.nome}</strong>: ${p.descricao} ${p.link ? `<a href="${p.link}" target="_blank">Link</a>` : ""}</li>`).join("")}
+      </ul></section>
+      <section><h2>Contato</h2><p>Email: ${d.email}</p>${d.linkedin ? `<p>LinkedIn: <a href="${d.linkedin}" target="_blank">${d.linkedin}</a></p>` : ""}</section>
+    </body>
+    </html>
+    `;
+  }
+
 });
