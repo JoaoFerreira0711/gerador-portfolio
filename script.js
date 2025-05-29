@@ -192,38 +192,57 @@ function gerarHtmlPreview(d) {
   <html lang="pt-br">
   <head>
     <meta charset="UTF-8">
-    <title>${d.nome}</title>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <title>Portfólio de ${d.nome}</title>
     <style>
       body {
-        font-family: 'Arial';
+        font-family: 'Arial', sans-serif;
         padding: 2rem;
-        color: #333;
-        background: ${d.fundo || '#f0f0f0'};
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
+        background: ${d.corFundo || '#f0f0f0'};
+        color: ${d.corTexto || '#222'};
       }
-      h1, h2 { color: #0a3d62; }
-      section { margin: 2rem 0; background: #fff; padding: 1rem; border-radius: 8px; }
-      img { max-width: 150px; border-radius: 50%; margin-top: 1rem; }
+      h1, h2 {
+        color: ${d.corTitulos || '#0a3d62'};
+      }
+      section {
+        margin: 2rem 0;
+        background: #fff;
+        padding: 1rem;
+        border-left: 4px solid ${d.corDivisoria || '#ccc'};
+        border-radius: 8px;
+      }
+      img {
+        max-width: 120px;
+        border-radius: 50%;
+        margin-bottom: 1rem;
+        display: block;
+      }
+      ul {
+        padding-left: 1.2rem;
+      }
+      a {
+        color: ${d.corTitulos || '#0a3d62'};
+      }
     </style>
   </head>
   <body>
-    <h1 data-aos="fade-down">${d.nome}</h1>
+    <h1>${d.nome}</h1>
     ${d.fotoBase64 ? `<img src="${d.fotoBase64}" alt="Foto de ${d.nome}" />` : ""}
-    <p data-aos="fade-in">${d.bio}</p>
-    <section data-aos="fade-up"><h2>Formação</h2><p>${d.formacao}</p></section>
-    <section data-aos="fade-up"><h2>Habilidades</h2><p>${d.habilidades}</p></section>
-    <section data-aos="fade-up"><h2>Objetivo</h2><p>${d.objetivo}</p></section>
-    <section data-aos="fade-up"><h2>Projetos</h2>
-      <ul>${d.projetos.map(p => `<li><strong>${p.nome}</strong>: ${p.descricao}</li>`).join('')}</ul>
+    <p>${d.bio}</p>
+    
+    <section><h2>Formação</h2><p>${d.formacao}</p></section>
+    <section><h2>Habilidades</h2><p>${d.habilidades}</p></section>
+    <section><h2>Objetivo</h2><p>${d.objetivo}</p></section>
+
+    <section><h2>Projetos</h2>
+      <ul>
+        ${d.projetos.map(p => `<li><strong>${p.nome}</strong>: ${p.descricao} ${p.link ? `<a href="${p.link}" target="_blank">Link</a>` : ''}</li>`).join("")}
+      </ul>
     </section>
-    <section data-aos="fade-up"><h2>Contato</h2>
-      <p>Email: ${d.email}</p>${d.linkedin ? `<p>LinkedIn: ${d.linkedin}</p>` : ''}
+
+    <section><h2>Contato</h2>
+      <p>Email: ${d.email}</p>
+      ${d.linkedin ? `<p>LinkedIn: <a href="${d.linkedin}" target="_blank">${d.linkedin}</a></p>` : ''}
     </section>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init();</script>
   </body>
   </html>
   `;
