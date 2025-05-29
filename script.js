@@ -86,7 +86,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  function updateSteps() {
+ function updateSteps() {
   steps.forEach((s, i) => s.classList.toggle("active", i === currentStep));
   progressItems.forEach((p, i) => p.classList.toggle("active", i <= currentStep));
   btnPrev.disabled = currentStep === 0;
