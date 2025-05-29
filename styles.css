@@ -30,18 +30,6 @@ h1 {
   color: #0a3d62;
 }
 
-.progress-indicator {
-  position: absolute;
-  top: -4px;
-  left: 0;
-  width: 24px;
-  height: 24px;
-  background: #0a3d62;
-  border-radius: 50%;
-  transition: transform 0.4s ease;
-  z-index: 1;
-}
-
 .progressbar {
   display: flex;
   list-style: none;
@@ -63,6 +51,17 @@ h1 {
   font-weight: bold;
 }
 
+.progress-indicator {
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  background: #0a3d62;
+  border-radius: 50%;
+  transition: transform 0.4s ease;
+  z-index: 1;
+}
 .step {
   display: none;
 }
