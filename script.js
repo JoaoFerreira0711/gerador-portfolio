@@ -1,4 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
+  showStep(currentStep);
   const steps = document.querySelectorAll('.step');
   const progress = document.querySelectorAll('.progressbar li');
   let currentIndex = 0;
